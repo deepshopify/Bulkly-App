@@ -1,0 +1,25 @@
+# Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
+
+client_id = "2a8fe267fd26f3c2099b7b15680917f3"
+name = "Bulkly"
+handle = "bulkly-1"
+application_url = "https://margaret-rocky-operates-interim.trycloudflare.com"
+embedded = true
+
+[build]
+automatically_update_urls_on_dev = true
+dev_store_url = "email-marketing-1.myshopify.com"
+include_config_on_deploy = true
+
+[auth]
+redirect_urls = [
+  "https://margaret-rocky-operates-interim.trycloudflare.com/auth/callback",
+  "https://margaret-rocky-operates-interim.trycloudflare.com/auth/shopify/callback",
+  "https://margaret-rocky-operates-interim.trycloudflare.com/api/auth/callback"
+]
+
+[webhooks]
+api_version = "2025-04"
+
+[pos]
+embedded = false
