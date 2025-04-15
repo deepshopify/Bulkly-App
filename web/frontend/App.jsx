@@ -1,9 +1,10 @@
 import { BrowserRouter, NavLink } from "react-router-dom";
-import { useTranslation } from "react-i18next";
 import { NavMenu } from "@shopify/app-bridge-react";
-import Routes from "./Routes";
-
+import { Provider } from "react-redux";
 import { QueryProvider, PolarisProvider } from "./components";
+import store from "./redux/store";
+import Routes from "./Routes";
+import { useTranslation } from "react-i18next";
 
 export default function App() {
   // Any .tsx or .jsx files in /pages will become a route
@@ -15,16 +16,18 @@ export default function App() {
 
   return (
     <PolarisProvider>
-      <BrowserRouter>
-        <QueryProvider>
-          <NavMenu>
-            <NavLink to="/" rel="home" className='active'></NavLink>
-            <NavLink to="/ManageCustomers">Manage Customers</NavLink>
-            <NavLink to="/ManageProducts">Manage Products</NavLink>
-          </NavMenu>
-          <Routes pages={pages} />
-        </QueryProvider>
-      </BrowserRouter>
+      <Provider store={store}>
+        <BrowserRouter>
+          <QueryProvider>
+            <NavMenu>
+              <NavLink to="/" rel="home" className='active'></NavLink>
+              <NavLink to="/ManageCustomers">Manage Customers</NavLink>
+              <NavLink to="/ManageProducts">Manage Products</NavLink>
+            </NavMenu>
+            <Routes pages={pages} />
+          </QueryProvider>
+        </BrowserRouter>
+      </Provider>
     </PolarisProvider>
   );
 }
