@@ -12,6 +12,10 @@ Bulkly is a Shopify app that helps merchants streamline customer data import and
   - Display upsell products during checkout.
   - Encourage customers to add more to their cart with targeted suggestions.
 
+## 📽 Demo
+
+[Watch the Demo Video](https://www.awesomescreenshot.com/video/38838524?key=1208de28242e3b80722f34e4b8cd62d5)
+
 ## 🚀 Getting Started
 
 1. Clone the repository.
