@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import { BlockStack, Box, Button, InlineStack, Layout, Page, Text } from "@shopify/polaris";
 import { Modal, TitleBar, useAppBridge } from "@shopify/app-bridge-react";
-import CustomersTable from "../components/customers/CustomerTable";
-import ImportCustomers from "../components/customers/ImportCustomer";
+import { BlockStack, Box, Button, InlineStack, Layout, Page, Text } from "@shopify/polaris";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCustomersAsync, importCustomersAsync } from "../redux/customer";
 import { getAllCustomerDetail } from "../redux/customer/slice";
+import ImportCustomers from "../components/customers/ImportCustomer";
+import CustomersTable from "../components/customers/CustomerTable";
 import LoadingComponent from "../components/loading";
 
 const ManageCustomers = () => {
@@ -52,12 +52,12 @@ const ManageCustomers = () => {
             <BlockStack gap='100'>
               <InlineStack align="space-between" blockAlign="center">
                 <Box>
-                  <Text variant='headingMd'>Customers Overviews</Text>
+                  <Text variant='headingMd' as="h6">Customers Overview</Text>
                   <Text variant='bodySm' tone='subdued'>
-                    Shows the imported customers
+                    A detailed list of imported customers with their essential information and activity insights.
                   </Text>
                 </Box>
-                <Button variant="primary" onClick={handleOpen}>Import</Button>
+                <Button variant="primary" onClick={handleOpen}>Import customers</Button>
               </InlineStack>
             </BlockStack>
           </Box>

@@ -6,6 +6,7 @@ import serveStatic from "serve-static";
 import shopify from "./shopify.js";
 import PrivacyWebhookHandlers from "./privacy.js";
 import router from "./routes/index.js";
+import UpsellProduct from './model/products/model.js'
 import cors from 'cors';
 
 const PORT = parseInt(

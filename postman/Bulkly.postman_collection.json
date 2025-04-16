@@ -1,0 +1,164 @@
+{
+	"info": {
+		"_postman_id": "ac92db87-ad93-4aa9-916e-27ce31c714f9",
+		"name": "Bulkly",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "39206955"
+	},
+	"item": [
+		{
+			"name": "product",
+			"item": [
+				{
+					"name": "saveUpsellProduct",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n    {\n        \"productId\": \"gid://shopify/Product/14638815117675\",\n        \"variantId\": \"gid://shopify/ProductVariant/51740211446123\",\n        \"title\": \"The Inventory Not Tracked Snowboard\",\n        \"imageUrl\": \"https://cdn.shopify.com/s/files/1/0891/3849/5851/files/snowboard_purple_hydrogen.png?v=1734150749\",\n        \"price\": \"949.95\"\n    }\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{bulkly_host_url}}/api/product/upsell-save?shop={{bulkly_shop}}",
+							"host": [
+								"{{bulkly_host_url}}"
+							],
+							"path": [
+								"api",
+								"product",
+								"upsell-save"
+							],
+							"query": [
+								{
+									"key": "shop",
+									"value": "{{bulkly_shop}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAllUpsellProducts",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{bulkly_host_url}}/api/product/upsell-get?shop={{bulkly_shop}}",
+							"host": [
+								"{{bulkly_host_url}}"
+							],
+							"path": [
+								"api",
+								"product",
+								"upsell-get"
+							],
+							"query": [
+								{
+									"key": "shop",
+									"value": "{{bulkly_shop}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getProductVariants",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{bulkly_host_url}}/api/products?shop={{bulkly_shop}}",
+							"host": [
+								"{{bulkly_host_url}}"
+							],
+							"path": [
+								"api",
+								"products"
+							],
+							"query": [
+								{
+									"key": "shop",
+									"value": "{{bulkly_shop}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteUpsellProduct",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"productId\": \"gid://shopify/Product/14638815117675\",\n    \"variantId\": \"gid://shopify/ProductVariant/51740211446123\",\n    \"id\": 4\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{bulkly_host_url}}/api/product/upsell-delete?shop={{bulkly_shop}}",
+							"host": [
+								"{{bulkly_host_url}}"
+							],
+							"path": [
+								"api",
+								"product",
+								"upsell-delete"
+							],
+							"query": [
+								{
+									"key": "shop",
+									"value": "{{bulkly_shop}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "customer",
+			"item": [
+				{
+					"name": "fetchAllCustomers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{bulkly_host_url}}/api/customers?shop={{bulkly_shop}}",
+							"host": [
+								"{{bulkly_host_url}}"
+							],
+							"path": [
+								"api",
+								"customers"
+							],
+							"query": [
+								{
+									"key": "shop",
+									"value": "{{bulkly_shop}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

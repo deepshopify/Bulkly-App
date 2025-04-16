@@ -1,3 +1,4 @@
+import { useState, useCallback } from 'react';
 import {
     TextField,
     IndexTable,
@@ -12,7 +13,6 @@ import {
     useBreakpoints,
     Thumbnail,
 } from '@shopify/polaris';
-import { useState, useCallback } from 'react';
 
 const CustomersTable = ({ customers, totalCount, loading }) => {
     const sleep = (ms) =>

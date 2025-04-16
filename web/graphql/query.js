@@ -64,3 +64,37 @@ mutation call($input: CustomerInput!) {
         }
     }
 }`;
+
+export const GET_PRODUCT_VARIANT_QUERY = `
+query getProductVariants {
+    products(first: 250) {
+        edges {
+            node {
+                id
+                title
+                featuredMedia {
+                    preview {
+                        image {
+                            url
+                        }
+                    }
+                }
+                variantsCount {
+                    count
+                }
+                variants(first: 250) {
+                    edges {
+                        node {
+                            id
+                            title
+                            price
+                            image {
+                                url
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}`;

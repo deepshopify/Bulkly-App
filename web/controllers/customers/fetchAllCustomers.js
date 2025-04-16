@@ -1,6 +1,6 @@
-import { getAccessTokenForShop } from '../../utils/shopifyUtils.js';
 import { customerInstance } from '../../service/customer.js';
 import { GET_CUSTOMER_QUERY } from '../../graphql/query.js';
+import { getAccessTokenForShop } from '../../utils/shopifyUtils.js';
 
 export const getAllCustomersFromShopify = async (req, res) => {
     const shop = req.query.shop;

@@ -1,9 +1,9 @@
-import { BrowserRouter, NavLink } from "react-router-dom";
 import { NavMenu } from "@shopify/app-bridge-react";
+import { BrowserRouter, NavLink } from "react-router-dom";
 import { Provider } from "react-redux";
-import { QueryProvider, PolarisProvider } from "./components";
 import store from "./redux/store";
 import Routes from "./Routes";
+import { QueryProvider, PolarisProvider } from "./components";
 import { useTranslation } from "react-i18next";
 
 export default function App() {
@@ -20,9 +20,8 @@ export default function App() {
         <BrowserRouter>
           <QueryProvider>
             <NavMenu>
-              <NavLink to="/" rel="home" className='active'></NavLink>
-              <NavLink to="/ManageCustomers">Manage Customers</NavLink>
-              <NavLink to="/ManageProducts">Manage Products</NavLink>
+              <NavLink to="/ManageCustomers" className='active'>Manage Customers</NavLink>
+              <NavLink to="/ManageProducts" className='active'>Manage Products</NavLink>
             </NavMenu>
             <Routes pages={pages} />
           </QueryProvider>

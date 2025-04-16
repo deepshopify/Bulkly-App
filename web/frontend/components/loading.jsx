@@ -1,5 +1,5 @@
-import { Spinner } from "@shopify/polaris";
 import React from "react";
+import { Spinner } from "@shopify/polaris";
 
 const LoadingComponent = () => {
     return (

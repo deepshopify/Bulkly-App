@@ -1,11 +1,11 @@
+import Papa from 'papaparse';
+import path from 'path';
+import FormData from 'form-data';
 import { writeFile } from 'fs/promises';
 import { mkdirSync, existsSync, createReadStream, statSync } from 'fs';
-import path from 'path';
 import { customerInstance } from '../../service/customer.js';
-import FormData from 'form-data';
-import Papa from 'papaparse';
-import { getAccessTokenForShop } from '../../utils/shopifyUtils.js';
 import { BULK_OPERATION_RUN_MUTATION_QUERY, CUSTOMER_CREATE_QUERY, STAGED_UPLOAD_QUERY } from '../../graphql/query.js';
+import { getAccessTokenForShop } from '../../utils/shopifyUtils.js';
 
 export const importCustomersFromCSV = async (req, res) => {
   const shop = req.query.shop;

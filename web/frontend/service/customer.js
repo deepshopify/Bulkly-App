@@ -3,7 +3,7 @@ import { backendAPI } from "./index.js";
 const shop = shopify.config.shop;
 
 export const importCustomers = (formData) => {
-  const requestInstance = backendAPI();
+  const requestInstance = backendAPI('multipart/form-data');
   return requestInstance.post(`customers/import-csv?shop=${shop}`, formData);
 };
 
