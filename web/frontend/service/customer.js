@@ -6,3 +6,8 @@ export const importCustomers = (formData) => {
   const requestInstance = backendAPI();
   return requestInstance.post(`customers/import-csv?shop=${shop}`, formData);
 };
+
+export const fetchCustomers = () => {
+  const requestInstance = backendAPI();
+  return requestInstance.get(`customers?shop=${shop}`);
+};

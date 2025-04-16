@@ -9,3 +9,9 @@ export const shopifyInstance = (shop, accessToken) => {
         }
     });
 };
+
+export const AwsAuthenticatedInstance = (url, headers) =>
+	axios.create({
+		baseURL: url,
+		headers: headers,
+	});

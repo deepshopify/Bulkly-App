@@ -10,14 +10,20 @@ import {
     RangeSlider,
     Badge,
     useBreakpoints,
+    Thumbnail,
 } from '@shopify/polaris';
 import { useState, useCallback } from 'react';
 
-const CustomersTable = () => {
+const CustomersTable = ({ customers, totalCount, loading }) => {
     const sleep = (ms) =>
         new Promise((resolve) => setTimeout(resolve, ms));
     const [itemStrings, setItemStrings] = useState([
-        'All'
+        'All',
+        'Unpaid',
+        'Open',
+        'Closed',
+        'Local delivery',
+        'Local pickup',
     ]);
     const deleteView = (index) => {
         const newItemStrings = [...itemStrings];
@@ -239,47 +245,8 @@ const CustomersTable = () => {
         });
     }
 
-    const orders = [
-        {
-            id: '1020',
-            order: (
-                <Text as="span" variant="bodyMd" fontWeight="semibold">
-                    #1020
-                </Text>
-            ),
-            date: 'Jul 20 at 4:34pm',
-            customer: 'Jaydon Stanton',
-            total: '$969.44',
-            paymentStatus: <Badge progress="complete">Paid</Badge>,
-            fulfillmentStatus: <Badge progress="incomplete">Unfulfilled</Badge>,
-        },
-        {
-            id: '1019',
-            order: (
-                <Text as="span" variant="bodyMd" fontWeight="semibold">
-                    #1019
-                </Text>
-            ),
-            date: 'Jul 20 at 3:46pm',
-            customer: 'Ruben Westerfelt',
-            total: '$701.19',
-            paymentStatus: <Badge progress="partiallyComplete">Partially paid</Badge>,
-            fulfillmentStatus: <Badge progress="incomplete">Unfulfilled</Badge>,
-        },
-        {
-            id: '1018',
-            order: (
-                <Text as="span" variant="bodyMd" fontWeight="semibold">
-                    #1018
-                </Text>
-            ),
-            date: 'Jul 20 at 3.44pm',
-            customer: 'Leo Carder',
-            total: '$798.24',
-            paymentStatus: <Badge progress="complete">Paid</Badge>,
-            fulfillmentStatus: <Badge progress="incomplete">Unfulfilled</Badge>,
-        },
-    ];
+    const orders = customers;
+
     const resourceName = {
         singular: 'order',
         plural: 'orders',
@@ -290,7 +257,7 @@ const CustomersTable = () => {
 
     const rowMarkup = orders.map(
         (
-            { id, order, date, customer, total, paymentStatus, fulfillmentStatus },
+            { id, firstName, lastName, email, image, smsMarketingConsent, emailMarketingConsent },
             index,
         ) => (
             <IndexTable.Row
@@ -300,19 +267,20 @@ const CustomersTable = () => {
                 position={index}
             >
                 <IndexTable.Cell>
-                    <Text variant="bodyMd" fontWeight="bold" as="span">
-                        {order}
-                    </Text>
+                    <Thumbnail size='small' alt={image?.url} source={image?.url} />
                 </IndexTable.Cell>
-                <IndexTable.Cell>{date}</IndexTable.Cell>
-                <IndexTable.Cell>{customer}</IndexTable.Cell>
                 <IndexTable.Cell>
-                    <Text as="span" alignment="end" numeric>
-                        {total}
+                    <Text variant="bodyMd" fontWeight="bold" as="span">
+                        {`${firstName} ${lastName}`}
                     </Text>
                 </IndexTable.Cell>
-                <IndexTable.Cell>{paymentStatus}</IndexTable.Cell>
-                <IndexTable.Cell>{fulfillmentStatus}</IndexTable.Cell>
+                <IndexTable.Cell>{email}</IndexTable.Cell>
+                <IndexTable.Cell>
+                    <Badge tone={smsMarketingConsent?.marketingState === 'SUBSCRIBED' ? 'success' : 'warning'}>{smsMarketingConsent?.marketingState}</Badge>
+                </IndexTable.Cell>
+                <IndexTable.Cell>
+                    <Badge tone={emailMarketingConsent?.marketingState === 'SUBSCRIBED' ? 'success' : 'warning'}>{emailMarketingConsent?.marketingState}</Badge>
+                </IndexTable.Cell>
             </IndexTable.Row>
         ),
     );
@@ -353,13 +321,16 @@ const CustomersTable = () => {
                 }
                 onSelectionChange={handleSelectionChange}
                 headings={[
-                    { title: 'Order' },
-                    { title: 'Date' },
-                    { title: 'Customer' },
-                    { title: 'Total', alignment: 'end' },
-                    { title: 'Payment status' },
-                    { title: 'Fulfillment status' },
+                    { title: 'Image' },
+                    { title: 'Name' },
+                    { title: 'email' },
+                    { title: 'Email Marketing Status' },
+                    { title: 'SMS Marketing Status' },
                 ]}
+                pagination={{
+                    label: `total customers ${totalCount}`
+                }}
+                loading={loading}
             >
                 {rowMarkup}
             </IndexTable>

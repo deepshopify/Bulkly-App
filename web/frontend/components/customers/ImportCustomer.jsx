@@ -4,11 +4,10 @@ import {
     Thumbnail,
     Text,
     BlockStack,
-    Spinner
 } from '@shopify/polaris';
 import { NoteIcon } from '@shopify/polaris-icons';
 
-const ImportCustomers = ({ loading, file, setFile }) => {
+const ImportCustomers = ({ file, setFile }) => {
     const handleDropZoneDrop = useCallback((_dropFiles, acceptedFiles) => {
         setFile(acceptedFiles[0]);
     }, []);
@@ -46,25 +45,6 @@ const ImportCustomers = ({ loading, file, setFile }) => {
                 {uploadedFile}
                 {fileUpload}
             </DropZone>
-            {loading &&
-                <div
-                    style={{
-                        position: "fixed",
-                        top: 0,
-                        left: 0,
-                        width: "100%",
-                        height: "100vh",
-                        backgroundColor: "rgba(255, 255, 255, 0.6)",
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        backdropFilter: "blur(1px)",
-                        zIndex: 9999,
-                    }}
-                >
-                    <Spinner accessibilityLabel="Loading" size="large" />
-                </div>
-            }
         </div>
     );
 };

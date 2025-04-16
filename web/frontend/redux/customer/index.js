@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { importCustomers } from "../../service/customer.js";
+import { fetchCustomers, importCustomers } from "../../service/customer.js";
 
 export const importCustomersAsync = createAsyncThunk(
     "customer/importCustomers",
@@ -21,6 +21,33 @@ export const importCustomersAsync = createAsyncThunk(
             return fulfillWithValue({});
         } catch (err) {
             const message = err?.response?.data?.message || "Upload failed";
+            shopify.toast.show(message);
+            return rejectWithValue();
+        }
+    }
+);
+
+export const fetchCustomersAsync = createAsyncThunk(
+    "customer/fetchCustomers",
+    async (params, { rejectWithValue, fulfillWithValue }) => {
+        try {      
+            const response = await fetchCustomers(params);
+            if (response.data) {
+                const { success, customers, totalCount } = response.data;
+                if (params.callback) {
+                    params.callback(success);
+                }
+                return fulfillWithValue({
+                    customers,
+                    totalCount
+                });
+            }
+            return fulfillWithValue({
+                customers: [],
+                totalCount: 0
+            });
+        } catch (err) {
+            const message = err?.response?.data?.message;
             shopify.toast.show(message);
             return rejectWithValue();
         }

@@ -1,18 +1,23 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BlockStack, Box, Button, InlineStack, Layout, Page, Text } from "@shopify/polaris";
 import { Modal, TitleBar, useAppBridge } from "@shopify/app-bridge-react";
 import CustomersTable from "../components/customers/CustomerTable";
 import ImportCustomers from "../components/customers/ImportCustomer";
 import { useDispatch, useSelector } from "react-redux";
-import { importCustomersAsync } from "../redux/customer";
+import { fetchCustomersAsync, importCustomersAsync } from "../redux/customer";
 import { getAllCustomerDetail } from "../redux/customer/slice";
+import LoadingComponent from "../components/loading";
 
 const ManageCustomers = () => {
   const shopify = useAppBridge();
   const dispatch = useDispatch();
 
-  const { isLoading } = useSelector((state) => getAllCustomerDetail(state));
+  const { isLoading, customers, isFetchCustomers, totalCount } = useSelector((state) => getAllCustomerDetail(state));
   const [file, setFile] = useState(null);
+
+  useEffect(() => {
+    handleFetchCustomer();
+  }, []);
 
   const handleUpload = () => {
     if (!file) return;
@@ -23,7 +28,12 @@ const ManageCustomers = () => {
     if (success) {
       setFile(null);
       handleClose();
+      handleFetchCustomer();
     }
+  };
+
+  const handleFetchCustomer = () => {
+    dispatch(fetchCustomersAsync({}));
   };
 
   const handleOpen = () => {
@@ -53,7 +63,11 @@ const ManageCustomers = () => {
           </Box>
         </Layout.Section>
         <Layout.Section>
-          <CustomersTable />
+          <CustomersTable
+            customers={customers}
+            totalCount={totalCount}
+            loading={isFetchCustomers}
+          />
         </Layout.Section>
       </Layout>
       <Modal id="import-customer-modal" variant="base">
@@ -64,6 +78,7 @@ const ManageCustomers = () => {
             loading={isLoading}
             handleUpload={handleUpload}
           />
+          {isLoading && <LoadingComponent />}
         </Layout.Section>
         <TitleBar title="Import customers by CSV">
           <button variant='primary' onClick={handleUpload}>Import customers</button>

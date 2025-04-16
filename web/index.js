@@ -5,10 +5,8 @@ import express from "express";
 import serveStatic from "serve-static";
 import shopify from "./shopify.js";
 import PrivacyWebhookHandlers from "./privacy.js";
-import Customer from "./model/customers/model.js";
 import router from "./routes/index.js";
 import cors from 'cors';
-import Scheduler from "./scheduler/scheduler.js";
 
 const PORT = parseInt(
   process.env.BACKEND_PORT || process.env.PORT || "3000",
@@ -57,5 +55,3 @@ app.use("/*", shopify.ensureInstalledOnShop(), async (_req, res, _next) => {
 });
 
 app.listen(PORT);
-
-Scheduler();
